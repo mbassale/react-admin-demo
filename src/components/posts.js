@@ -14,6 +14,8 @@ import {
 } from 'react-admin';
 import SummaryField from './SummaryField';
 
+const PostTitle = ({ record }) => (<span>{record ? `Post: ${record.title}` : ''}</span>);
+
 export const PostList = props => (
     <List {...props}>
         <Datagrid rowClick="edit">
@@ -41,7 +43,7 @@ export const PostCreate = props => (
 );
 
 export const PostEdit = props => (
-    <Edit {...props}>
+    <Edit title={<PostTitle />} {...props}>
         <SimpleForm>
             <TextInput disabled source="id" />
             <ReferenceInput source="userId" reference="users">
