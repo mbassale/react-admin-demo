@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useMediaQuery } from '@material-ui/core';
 import {
     Filter,
     List,
@@ -8,6 +9,7 @@ import {
     EditButton,
     Create,
     Edit,
+    SimpleList,
     SimpleForm,
     ReferenceInput,
     SelectInput,
@@ -26,19 +28,27 @@ const PostFilter = (props) => (
     </Filter>
 );
 
-export const PostList = props => (
-    <List filters={<PostFilter />} {...props}>
-        <Datagrid rowClick="edit">
-            <TextField source="id"/>
-            <ReferenceField source="userId" reference="users">
-                <TextField source="name"/>
-            </ReferenceField>
-            <TextField source="title"/>
-            <SummaryField source="body"/>
-            <EditButton/>
-        </Datagrid>
-    </List>
-);
+export const PostList = props => {
+    const isSmall = useMediaQuery(theme => theme.breakpoints.down('sm'));
+    return (
+        <List filters={<PostFilter/>} {...props}>
+            {isSmall ? (
+                <SimpleList primaryText={record => record.title} secondaryText={record => <SummaryField record={record} source="body" />} />
+            ): (
+                <Datagrid rowClick="edit">
+                    <TextField source="id"/>
+                    <ReferenceField source="userId" reference="users">
+                        <TextField source="name"/>
+                    </ReferenceField>
+                    <TextField source="title"/>
+                    <SummaryField source="body"/>
+                    <EditButton/>
+                </Datagrid>
+            )
+            }
+        </List>
+    );
+};
 
 export const PostCreate = props => (
     <Create {...props}>
