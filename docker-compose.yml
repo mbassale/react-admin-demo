@@ -9,13 +9,14 @@ services:
     user: 1000:1000
     working_dir: /usr/src/app
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
     volumes:
       - ./:/usr/src/app
-    expose:
-      - "3000"
+    ports:
+      - "3000:3000"
     networks:
       - app-network
+    command: yarn run start
 
 networks:
   app-network:
