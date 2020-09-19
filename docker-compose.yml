@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+
+  app:
+    image: node:lts
+    container_name: app
+    restart: unless-stopped
+    tty: true
+    user: 1000:1000
+    working_dir: /usr/src/app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./:/usr/src/app
+    expose:
+      - "8080"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
