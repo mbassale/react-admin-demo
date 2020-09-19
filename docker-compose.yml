@@ -13,7 +13,7 @@ services:
     volumes:
       - ./:/usr/src/app
     expose:
-      - "8080"
+      - "3000"
     networks:
       - app-network
 
